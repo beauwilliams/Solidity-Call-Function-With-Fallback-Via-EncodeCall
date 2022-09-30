@@ -12,7 +12,7 @@ We will examine `call()` which is a solidity builtin function that allows us to 
 ## Test
 
 
-![carbon (22)](https://user-images.githubusercontent.com/7098556/193192592-f36dd26b-f455-49aa-9d21-31c6894b614f.png)
+![carbon (23)](https://user-images.githubusercontent.com/7098556/193197240-f162962a-e4d7-4fdd-b4ca-03761408cd5a.png)
 
 
 ## GET STARTED
