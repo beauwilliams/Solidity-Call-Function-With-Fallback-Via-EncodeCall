@@ -4,9 +4,10 @@ pragma solidity 0.8.13;
 contract Receiver {
     event FallbackCalled(address caller, uint256 amount, string message);
     event ReceiveCalled(address caller, uint256 amount, string message);
+    event FooCalled(address caller, uint256 amount, string message);
 
     fallback() external payable {
-        emit ReceiveCalled(msg.sender, msg.value, "Fallback was called");
+        emit FallbackCalled(msg.sender, msg.value, "Fallback was called");
     }
 
     receive() external payable {
@@ -18,7 +19,7 @@ contract Receiver {
         payable
         returns (uint256)
     {
-        emit ReceiveCalled(msg.sender, msg.value, _message);
+        emit FooCalled(msg.sender, msg.value, _message);
         return val;
     }
 }

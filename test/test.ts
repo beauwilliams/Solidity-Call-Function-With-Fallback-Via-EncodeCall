@@ -34,15 +34,15 @@ describe("Test", function () {
 
   describe("Called existing function in ReceiverContract", function () {
     it("Call foo() in Receiver contract)", async function () {
-      const response = await Caller.callFoo(Receiver.address);
-      // console.log(response);
+      await expect(Caller.callFoo(Receiver.address)
+            ).to.emit(Receiver, 'FooCalled');
     });
   });
 
   describe("Called non existing function in ReceiverContract", function () {
     it("Call bar() in Receiver contract)", async function () {
-      const response = await Caller.callBar(Receiver.address);
-      // console.log(response);
+      await expect(Caller.callBar(Receiver.address)
+            ).to.emit(Receiver, 'FallbackCalled');
     });
   });
 });
