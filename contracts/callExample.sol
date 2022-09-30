@@ -36,16 +36,17 @@ contract Caller {
         //@dev: sending ether in the tx, specifying gas amount
         (bool callSuccess, bytes memory callResponseData) = addr.call{
             value: msg.value,
-            gas: 5000
+            gas: 4200
         }(abi.encodeWithSignature("foo(string,uint256)", "call foo", 123));
         emit CallResponse(callSuccess, callResponseData);
     }
 
     // @dev: Here we will call a non-existent function in Receiver, triggering fallback()
-    function callBar(address addr) public {
-        (bool callSuccess, bytes memory callResponseData) = addr.call(
-            abi.encodeWithSignature("bar()")
-        );
+    function callBar(address addr) public payable {
+        (bool callSuccess, bytes memory callResponseData) = addr.call{
+            value: msg.value,
+            gas: 4200
+        }(abi.encodeWithSignature("bar()"));
         emit CallResponse(callSuccess, callResponseData);
     }
 }
