@@ -1,4 +1,4 @@
-#  Solidity-Call-Function-With-Fallback-Via-EncodeCall
+#  Solidity-Call-Function-With-Fallback-Via-EncodeWithSignature
 ## OVERVIEW
 
 We will examine `call()` which is a solidity builtin function that allows us to call functions in other smart contracts. Here we will show how to call from a caller contract, what happens when function does and does not exist in the receiver contract.
