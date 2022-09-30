@@ -2,7 +2,6 @@ import chai, { expect } from "chai";
 import { ethers, upgrades } from "hardhat";
 import { solidity } from "ethereum-waffle";
 chai.use(solidity);
-import { Signer } from "ethers";
 import {
   Caller,
   Receiver,
@@ -10,14 +9,13 @@ import {
   Receiver__factory,
 } from "../typechain";
 
-describe("Test", function () {
-  let owner: any;
-  let accounts: Signer[];
-  let Caller: Caller;
-  let Receiver: Receiver;
+  let CallerContract: Caller;
+  let ReceiverContract: Receiver;
   let CallerContractFactory: Caller__factory;
   let ReceiverContractFactory: Receiver__factory;
 
+
+describe("Test Suite", function () {
   before(async () => {
     CallerContractFactory = <Caller__factory>(
       await ethers.getContractFactory("Caller")
@@ -25,24 +23,23 @@ describe("Test", function () {
     ReceiverContractFactory = <Receiver__factory>(
       await ethers.getContractFactory("Receiver")
     );
-    Caller = await CallerContractFactory.deploy();
-    Receiver = await ReceiverContractFactory.deploy();
-    await Caller.deployed();
-    await Receiver.deployed();
-    [owner] = await ethers.getSigners();
+    CallerContract = await CallerContractFactory.deploy();
+    ReceiverContract = await ReceiverContractFactory.deploy();
+    await CallerContract.deployed();
+    await ReceiverContract.deployed();
   });
 
   describe("Called existing function in ReceiverContract", function () {
     it("Call foo() in Receiver contract)", async function () {
-      await expect(Caller.callFoo(Receiver.address)
-            ).to.emit(Receiver, 'FooCalled');
+      await expect(CallerContract.callFoo(ReceiverContract.address)
+            ).to.emit(ReceiverContract, 'FooCalled');
     });
   });
 
   describe("Called non existing function in ReceiverContract", function () {
     it("Call bar() in Receiver contract)", async function () {
-      await expect(Caller.callBar(Receiver.address)
-            ).to.emit(Receiver, 'FallbackCalled');
+      await expect(CallerContract.callBar(ReceiverContract.address)
+            ).to.emit(ReceiverContract, 'FallbackCalled');
     });
   });
 });
