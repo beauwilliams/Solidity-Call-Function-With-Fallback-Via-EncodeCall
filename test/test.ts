@@ -18,7 +18,7 @@ describe("Test", function () {
   let CallerContractFactory: Caller__factory;
   let ReceiverContractFactory: Receiver__factory;
 
-  beforeEach(async () => {
+  before(async () => {
     CallerContractFactory = <Caller__factory>(
       await ethers.getContractFactory("Caller")
     );
