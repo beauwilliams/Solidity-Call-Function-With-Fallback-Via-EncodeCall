@@ -1,7 +1,8 @@
+import { ethers } from "hardhat";
 import chai, { expect } from "chai";
-import { ethers, upgrades } from "hardhat";
 import { solidity } from "ethereum-waffle";
 chai.use(solidity);
+
 import {
   Caller,
   Receiver,
@@ -9,13 +10,12 @@ import {
   Receiver__factory,
 } from "../typechain";
 
+describe("Test Suite", function () {
   let CallerContract: Caller;
   let ReceiverContract: Receiver;
   let CallerContractFactory: Caller__factory;
   let ReceiverContractFactory: Receiver__factory;
 
-
-describe("Test Suite", function () {
   before(async () => {
     CallerContractFactory = <Caller__factory>(
       await ethers.getContractFactory("Caller")
@@ -31,15 +31,19 @@ describe("Test Suite", function () {
 
   describe("Called existing function in ReceiverContract", function () {
     it("Call foo() in Receiver contract)", async function () {
-      await expect(CallerContract.callFoo(ReceiverContract.address)
-            ).to.emit(ReceiverContract, 'FooCalled');
+      await expect(CallerContract.callFoo(ReceiverContract.address)).to.emit(
+        ReceiverContract,
+        "FooCalled"
+      );
     });
   });
 
   describe("Called non existing function in ReceiverContract", function () {
     it("Call bar() in Receiver contract)", async function () {
-      await expect(CallerContract.callBar(ReceiverContract.address)
-            ).to.emit(ReceiverContract, 'FallbackCalled');
+      await expect(CallerContract.callBar(ReceiverContract.address)).to.emit(
+        ReceiverContract,
+        "FallbackCalled"
+      );
     });
   });
 });
